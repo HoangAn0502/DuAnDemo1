@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Http\Resources\CustomerResource;
+use App\Http\Resources\CustomerCollection;
+
 
 class CustomerController extends Controller
 {
@@ -15,7 +18,7 @@ class CustomerController extends Controller
     public function index()
     {
         //Hiển thị tất cả người dùng
-        return Customer::all();
+        return new CustomerCollection(Customer::paginate(10)); //paginate Dùng để phân trang.
     }
 
     /**
@@ -45,10 +48,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($customer)
+    public function show(Customer $customer)
     {
         //Hiển thị customer/5
-        return Customer::find($customer);
+        return new CustomerResource($customer);
     }
 
     /**
