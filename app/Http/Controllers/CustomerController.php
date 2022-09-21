@@ -45,9 +45,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($customer)
     {
         //Hiển thị customer/5
+        return Customer::find($customer);
     }
 
     /**
