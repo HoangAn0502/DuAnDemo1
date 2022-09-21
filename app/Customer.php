@@ -8,6 +8,8 @@ class Customer extends Model
 {
     public $timestamp = false; //k set thoi gian
     protected $fillable = [
-        '','','','','','',''
+        'name_customer','phone_customer','address_customer','email_customer','city_customer'
     ];
+    protected $primaryKey = 'id_customer';
+    protected $table = 'customer';
 }
