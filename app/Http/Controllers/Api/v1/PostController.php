@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+namespace App\Http\Controllers\Api\v1;
+
+use App\Http\Controllers\Controller;
+
 use App\Post;
 use Illuminate\Http\Request;
 
