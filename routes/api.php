@@ -16,7 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resource('customer', 'CustomerController');
+
+//only chỉ sử dụng các phương thức ('pt1', 'pt2', .....)
+//except trừ ra phương thức('pt1', 'pt2', .....) || k sử dụng phương thức('pt1', 'pt2', .....)
+Route::resource('customer', 'CustomerController')->only('index', 'show', 'update', 'delete', 'store');
 
 
     
