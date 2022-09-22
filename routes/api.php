@@ -23,7 +23,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::resource('customer', 'Api\v1\CustomerController')->only('index', 'show', 'update', 'destroy', 'store');
 
 Route::prefix('v1')->group(function(){
-    Route::resource('customer', 'Api\v1\CustomerController')->only('index', 'show', 'update', 'destroy', 'store');
+    Route::resource('customer', 'Api\v1\CustomerController')->only('show', 'update', 'destroy', 'store');
+
+    Route::resource('customer', 'Api\v1\CustomerController')->only('index');
+
+    Route::resource('category', 'Api\v1\CategoryPostController');
+
 });
 
 
