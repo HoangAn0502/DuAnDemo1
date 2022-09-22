@@ -40,6 +40,17 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //Lưu người dùng vào db
+        $request -> validate([
+            'name_customer' => 'required',
+            'phone_customer' => 'required',
+            'address_customer' => 'required',
+            'email_customer' => 'required',
+            'city_customer' => 'required'
+        ]);
+
+        $customer = Customer::create($request->all());
+        //Trả về dữ liệu
+        return new CustomerResource($customer);
     }
 
     /**
