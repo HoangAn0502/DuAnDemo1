@@ -83,9 +83,12 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Customer $customer)
     {
         //cập nhật người dùng
+        $customer->update($request->all());
+         //Trả về dữ liệu
+         return new CustomerResource($customer);
     }
 
     /**
@@ -94,8 +97,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Customer $customer)
     {
         //Xóa người dùng
+        $customer->delete();
     }
 }
