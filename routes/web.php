@@ -14,3 +14,7 @@
 Route::get('/', 'HomeController@index');
 //chi tiết bài viết
 Route::get('/bai-viet/{id}', 'BaivietController@show');
+
+Auth::routes();
+
+Route::get('/home', 'LoginController@index')->name('home');  

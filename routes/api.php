@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/', 'HomeController@index');
+// Route::resource('/', 'HomeController@index');
 //only chỉ sử dụng các phương thức ('pt1', 'pt2', .....)
 //except trừ ra phương thức('pt1', 'pt2', .....) || k sử dụng phương thức('pt1', 'pt2', .....)
 //Route::resource('customer', 'Api\v1\CustomerController')->only('index', 'show', 'update', 'destroy', 'store');
