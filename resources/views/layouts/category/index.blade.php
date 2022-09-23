@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -13,6 +14,18 @@
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <!-- Thông báo cập nhật -->
+                    @if (Session::has('success'))
+                        <div class="alert alert-success" >
+                            <p>{{ Session::get('success') }}</p>
+                        </div>
+                    @endif
+                    @if (Session::has('failure'))
+                        <div class="alert alert-success" >
+                            <p>{{ Session::get('failure') }} Cập nhật không thành công</p>
                         </div>
                     @endif
                     
@@ -27,7 +40,7 @@
                         <tbody>
                             @foreach($category as $categories)
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">{{$categories->id}}</th>
                                 <td>{{$categories->title}}</td>
                                 <td>
                                     <form action="{{route('category.destroy',[$categories->id])}}" method="POST">
@@ -36,11 +49,8 @@
                                         <input class="btn btn-danger mb-2 btn-sm w-50" type="submit" value="Xóa">
                                     </form>
 
-                                    <form action="{{route('category.edit',[$categories->id])}}" method="POST">
-                                        @method('PUT')
-                                        @csrf
-                                        <input class="btn btn-success  btn-sm w-50" type="submit" value="Sửa">
-                                    </form>
+
+                                    <a class="btn btn-success  btn-sm w-50" href="{{route('category.show',[$categories->id])}}">Sửa</a>
 
                                 </td>
                             </tr>
