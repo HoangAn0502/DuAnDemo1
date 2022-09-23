@@ -29,6 +29,9 @@ Route::prefix('v1')->group(function(){
 
     Route::resource('category', 'Api\v1\CategoryPostController');
 
+    Route::resource('post', 'Api\v1\PostController');
+
+
 });
 
 

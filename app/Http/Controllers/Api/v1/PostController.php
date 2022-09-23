@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 
-use App\Post;
 use Illuminate\Http\Request;
+
+use App\Post;
+use App\CategoryPost;
+//use upload file
+use Storage;
+use File;
+use Session;
+
+
+
 
 class PostController extends Controller
 {
@@ -18,7 +26,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        //Hiển thị danh mục bài viết
+
+        
     }
 
     /**
@@ -29,6 +39,8 @@ class PostController extends Controller
     public function create()
     {
         //
+        $category =  CategoryPost::all();
+        return view('layouts.post.create')->with(compact('category'));
     }
 
     /**
@@ -39,7 +51,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Thêm bài viết
+        $post = new Post();
+        $post->title = $request->title;
+        $post->short_desc = $request->short_desc;
+        $post->desc = $request->desc; 
+        $post->post_category_id = $request->post_category_id; 
+
+        if( $request['image']){
+            // $image = $request['image'];
+            // $ext = $image->getClientOriginalExtension(); 
+            // $name = time().''.$image->getClientOriginalName();
+
+            $image = $request['image'];
+            // dd($image) ;
+            $ext = $image->getClientOriginalExtension();
+            $name = time().'_'.$image->getClientOriginalName();
+            Storage::disk('public') -> put($name, File::get($image));
+            $post-> image = $name;
+        }else{
+            $post-> image = 'default.jpg';
+        }
+
+        $post->save();
+
+        return redirect()->back();
     }
 
     /**

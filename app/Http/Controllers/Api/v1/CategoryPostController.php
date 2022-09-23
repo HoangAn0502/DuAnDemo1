@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\CategoryPost;
 use Illuminate\Http\Request;
+use Session;
 
 class CategoryPostController extends Controller
 {
@@ -48,7 +49,8 @@ class CategoryPostController extends Controller
         $Category->title = $request->title;
         $Category->save();
 
-        return redirect()->back();
+        
+        return redirect()->route('category.index')->with('success', 'Bạn đã thêm thành công');
         
     }
 
@@ -58,9 +60,11 @@ class CategoryPostController extends Controller
      * @param  \App\CategoryPost  $categoryPost
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryPost $categoryPost)
+    public function show( $categoryPost)
     {
-        //
+        //Hiển thị form cập nh danh mục
+        $category = CategoryPost::find($categoryPost);
+        return view('layouts.category.show')->with(compact('category'));
     }
 
     /**
@@ -72,6 +76,7 @@ class CategoryPostController extends Controller
     public function edit(CategoryPost $categoryPost)
     {
         //
+
     }
 
     /**
@@ -81,9 +86,15 @@ class CategoryPostController extends Controller
      * @param  \App\CategoryPost  $categoryPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryPost $categoryPost)
+    public function update(Request $request,  $categoryPost)
     {
-        //
+        //Cập nhật danh mục bài viết
+        $data = $request->all(); //lấy tất cả
+        $category = CategoryPost::find($categoryPost);
+        $category->title = $data['title'];
+        $category->save();
+
+        return redirect()->route('category.index')->with('success', 'Bạn đã cập nhật thành công');
     }
 
     /**
@@ -92,10 +103,10 @@ class CategoryPostController extends Controller
      * @param  \App\CategoryPost  $categoryPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy($CategoryPost)
+    public function destroy($categoryPost)
     {
         //Xóa danh mục bài viết
-        $category = CategoryPost::find($CategoryPost);
+        $category = CategoryPost::find($categoryPost);
         $category->delete();
         return redirect()->back();
     }
