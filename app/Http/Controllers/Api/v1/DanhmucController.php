@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class BaivietController extends Controller
+use App\CategoryPost;
+use App\Post;
+
+class DanhmucController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -45,8 +49,9 @@ class BaivietController extends Controller
      */
     public function show($id)
     {
-        //Hiển thị bài viết
-        return view('pages.details');
+        $category_post = Post::with('category')->where('post_category_id', $id)->get();
+        $category =  CategoryPost::all();   
+        return view('pages.category')->with(compact('category','category_post'));   
     }
 
     /**

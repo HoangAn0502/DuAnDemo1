@@ -31,6 +31,12 @@ Route::prefix('v1')->group(function(){
 
     Route::resource('post', 'Api\v1\PostController');
 
+    Route::resource('bai-viet', 'Api\v1\BaivietController');
+
+    Route::resource('danh-muc', 'Api\v1\DanhmucController');
+
+
+
 
 });
 
