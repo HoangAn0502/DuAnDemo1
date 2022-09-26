@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+
 use App\CategoryPost;
 use App\Post;
 
-class HomeController extends Controller
+class BaivietController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //Show page home
-        $category =  CategoryPost::all();
-        return view('pages.main')->with(compact('category'));
+        //
     }
 
     /**
@@ -49,9 +49,11 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        //Hiển thị bài viết
+        $post = Post::with('category')->where('id', $id)->first();
+        $category =  CategoryPost::all(); 
+        return view('pages.details')->with(compact('category', 'post'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

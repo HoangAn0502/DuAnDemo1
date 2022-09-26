@@ -46,11 +46,11 @@
                             <tr>
                                 <th scope="row">{{$p->id}}</th>
                                 <td scope="row">{{$p->title}}</td>
-                                <td scope="row"><img width="100px" src="{{asset('/uploads/'.$p->image)}}" alt=""></td>
-                                <td scope="row">{!!$p->short_desc!!}</td>
+                                <td scope="row"><img width="150px" src="{{asset('/uploads/'.$p->image)}}" alt=""></td>
+                                <td scope="row">{!!substr($p->short_desc, 0, 100)!!}</td>
                                 <td scope="row">{{$p->category->title}}</td>
 
-                                <td>
+                                <td scope="row">
                                     <form action="{{route('post.destroy',[$p->id])}}" method="POST">
                                         @method('DELETE')
                                         @csrf
