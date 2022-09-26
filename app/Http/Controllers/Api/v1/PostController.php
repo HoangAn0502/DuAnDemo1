@@ -27,6 +27,8 @@ class PostController extends Controller
     public function index()
     {
         //Hiển thị danh mục bài viết
+        $post = Post::with('category')->orderBy('id', 'DESC')->get();
+        return view('layouts.post.index')->with(compact('post'));
 
         
     }
@@ -76,6 +78,7 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->back();
+        return redirect()->route('post.index')->with('success', 'Bạn đã thêm thành công');
     }
 
     /**
@@ -118,8 +121,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($post)
     {
         //
+        $path = 'uploads/';
+        $post = Post::find($post);
+        unlink($path.$post->image);
+        $post->delete();
+        return redirect()->back();
     }
 }
