@@ -87,9 +87,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show( $post)
     {
-        //
+        $post = Post::find($post);
+        $category =  CategoryPost::all();
+        return view('layouts.post.show')->with(compact('category', 'post'));
     }
 
     /**
@@ -110,9 +112,31 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $post)
     {
-        //
+        $post = Post::find($post);
+        $post->title = $request->title;
+        $post->short_desc = $request->short_desc;
+        $post->desc = $request->desc; 
+        $post->post_category_id = $request->post_category_id; 
+
+        if( $request['image']){
+            unlink('uploads/'.$post->image);
+            // $image = $request['image'];
+            // $ext = $image->getClientOriginalExtension(); 
+            // $name = time().''.$image->getClientOriginalName();
+
+            $image = $request['image'];
+            // dd($image) ;
+            $ext = $image->getClientOriginalExtension();
+            $name = time().'_'.$image->getClientOriginalName();
+            Storage::disk('public') -> put($name, File::get($image));
+            $post-> image = $name;
+        }
+
+        $post->save();
+        return redirect()->route('post.index')->with('success', 'Bạn đã cập nhật thành công');
+
     }
 
     /**
