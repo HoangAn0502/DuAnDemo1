@@ -10,6 +10,18 @@
                 </div>   
 
                 <div class="card-body">
+               
+                    <!-- Thông báo cập nhật -->
+                    @if (Session::has('success'))
+                        <div class="alert alert-success" >
+                            <p>{{ Session::get('success') }}</p>
+                        </div>
+                    @endif
+                    @if (Session::has('failure'))
+                        <div class="alert alert-success" >
+                            <p>{{ Session::get('failure') }} Cập nhật không thành công</p>
+                        </div>
+                    @endif
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
