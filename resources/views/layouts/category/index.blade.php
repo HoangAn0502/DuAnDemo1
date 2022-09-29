@@ -34,6 +34,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Tiêu đề</th>
+                                <th scope="col">Mô tả danh mục</th>
                                 <th scope="col">Quản lí</th>
                             </tr>
                         </thead>
@@ -42,15 +43,16 @@
                             <tr>
                                 <th scope="row">{{$categories->id}}</th>
                                 <td>{{$categories->title}}</td>
+                                <td>{{$categories->short_desc}}</td>
                                 <td>
                                     <form action="{{route('category.destroy',[$categories->id])}}" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <input class="btn btn-danger mb-2 btn-sm w-50" type="submit" value="Xóa">
+                                        <input class="btn btn-danger mb-2 btn-sm  " type="submit" value="Xóa">
                                     </form>
 
 
-                                    <a class="btn btn-success  btn-sm w-50" href="{{route('category.show',[$categories->id])}}">Sửa</a>
+                                    <a class="btn btn-success  btn-sm  " href="{{route('category.show',[$categories->id])}}">Sửa</a>
 
                                 </td>
                             </tr>

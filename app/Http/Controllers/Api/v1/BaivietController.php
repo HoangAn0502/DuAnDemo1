@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\CategoryPost;
 use App\Post;
+use DB;
 
 class BaivietController extends Controller
 {
@@ -50,9 +51,18 @@ class BaivietController extends Controller
     public function show($id)
     {
         //Hiển thị bài viết
-        $post = Post::with('category')->where('id', $id)->first();
+
+        $post = Post::with('category')->where('id', $id)->first(); 
+
+        foreach($post as $key => $p){
+            $category_id = $post -> post_category_id;
+        }
+
+        $post_related = Post::with('category')->where('post_category_id', $category_id)->whereNotIn('id', [$id])->orderBy(DB::raw('RAND()'))->limit(5)->get();  
+
         $category =  CategoryPost::all(); 
-        return view('pages.details')->with(compact('category', 'post'));
+
+        return view('pages.details')->with(compact('category', 'post','post_related'));
     }
     /**
      * Show the form for editing the specified resource.

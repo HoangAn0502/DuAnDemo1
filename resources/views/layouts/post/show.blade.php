@@ -35,6 +35,9 @@
                             <label for="title">Tiêu đề</label>
                             <input type="text" name="title" id="" class="form-control" value="{{$post->title}}">
 
+                            <label for="title">Lượt xem</label>
+                            <input type="text" name="views" id="" class="form-control" value="{{$post->views}}">
+
                             <label for="title">Hình ảnh</label>
                             <input type="file" name="image" class="form-control" >
                             <p><img width="100px" src="{{asset('/uploads/'.$post->image)}}" alt=""></p>

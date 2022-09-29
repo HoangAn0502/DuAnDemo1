@@ -4,18 +4,27 @@
 
 	<div class="single">
 		<div class="container">
-				<div class="single-top">
+			<style type="text/css">	
+				.single-top single_post img{
+					width: 100% !important;
+				}
+
+			</style>
+			<div class="col-md-8">
+				<div class="single-top single_post">
 						<a href="#"><img class="img-responsive" src="{{ asset('uploads/'.$post->image) }}" alt=" "></a>
 					<div class=" single-grid">
-						<h4>{{$post->title}}</h4>				
+						<h4 style="text-align: center; form-weight: bold; form-size:30px; font-family: sans-serif;">{{$post->title}}</h4>				
 							<ul class="blog-ic">
 								<li><a href="#"><span> <i  class="glyphicon glyphicon-user"> </i>Admin</span> </a> </li>
 		  						 <li><span><i class="glyphicon glyphicon-time"> </i>{{$post->created_at}}</span></li>		  						 	
-		  						 <li><span><i class="glyphicon glyphicon-eye-open"> </i>View:145</span></li>
+		  						 <li><span><i class="glyphicon glyphicon-eye-open"> </i>View:{{$post->views}}</span></li>
 		  					</ul>		  						
 						<h6>{!!$post->short_desc!!}</h6>
 						<p>{!!$post->desc!!}</p>
 					</div>
+
+					
 					<div class="comments heading">
 						<h3>Bình luận về bài viết</h3>
 						<div class="media">
@@ -51,7 +60,32 @@
 					</form>
     				</div>
 				</div>	
-			</div>					
+			</div>	
+			<div class="col-sm-4 about-right heading">
+				<div class="abt-2">
+                    <h3>Bài viết liên quan</h3>
+						@foreach ($post_related as $key => $relate)
+                            <a href="{{route('bai-viet.show',['id'=>$relate->id])}}">
+                                <div class="might-grid">
+                                
+                                    <div class="grid-might">
+                                        <img src="{{asset('uploads/'.$relate->image)}}" class="img-responsive" alt=""> 
+                                    </div>
+                                    <div class="might-top">
+                                        <h5 style="color:black; font-family: Arial;">{{substr($relate->title,0,80)}}</h5>
+                                        <p>{!!substr($relate->short_desc,0,100)!!}...</p> 
+                                        <a href="{{route('bai-viet.show',['id'=>$relate->id])}}">Đọc tiếp...</a>
+                                    </div>
+                                    
+                                    <div class="clearfix">
+                                    </div>
+                                
+                                </div>	
+                            </a>
+                            @endforeach
+                </div>
+			</div>
+		</div>					
 	</div>
 	<!--end-single-->
 @endsection

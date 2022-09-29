@@ -49,9 +49,16 @@ class DanhmucController extends Controller
      */
     public function show($id)
     {
-        $category_post = Post::with('category')->where('post_category_id', $id)->get();
+        $category_post = Post::with('category')->where('post_category_id', $id)->orderBy('id', 'DESC')->paginate(5);
         $category =  CategoryPost::all();   
-        return view('pages.category')->with(compact('category','category_post'));   
+
+        $title_category =  CategoryPost::find($id);
+
+        $viewest_post = Post::with('category')->orderBy('views', 'DESC')->limit(5)->where('post_category_id', $id)->get();  
+
+        $category_recomment = CategoryPost::whereNotIn('id', [$id])->get();
+
+        return view('pages.category')->with(compact('category','category_post','title_category', 'viewest_post', 'category_recomment'));   
     }
 
     /**

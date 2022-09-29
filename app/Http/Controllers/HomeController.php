@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CategoryPost;
 use App\Post;
+use DB;
 
 class HomeController extends Controller
 {
@@ -16,8 +17,28 @@ class HomeController extends Controller
     public function index()
     {
         //Show page home
+        $all_post = Post::orderBy('id', 'DESC')->paginate(4);
+
+        $newest_post = Post::orderBy('views', 'DESC')->limit(5)->get();   
+
+        $viewest_post = Post::orderBy(DB::raw('RAND()'))->limit(5)->get();   
+
+
         $category =  CategoryPost::all();
-        return view('pages.main')->with(compact('category'));
+
+        return view('pages.main')->with(compact('category', 'all_post', 'newest_post', 'viewest_post'));
+    }
+
+    public function tim_kiem()
+    {
+        $keywords = $_GET['keywords'];
+        $category_post = Post::with('category')->where('title', 'LIKE', '%'.$keywords.'%')->orwhere('short_desc', 'LIKE', '%'.$keywords.'%')
+        ->orwhere('desc', 'LIKE', '%'.$keywords.'%')->get();
+        
+        $category =  CategoryPost::all();   
+
+
+        return view('pages.tim_kiem')->with(compact('category','category_post', 'keywords'));
     }
 
     /**
