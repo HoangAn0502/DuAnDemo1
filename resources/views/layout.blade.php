@@ -8,7 +8,7 @@
         <meta name="keywords" content="Coffee Break Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
         Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 
-        <title>Blog Api Laravel</title>
+        <title>Tiền số online</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -16,6 +16,11 @@
         <!-- Styles -->
 
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- Link font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
         <link href="{{ asset('css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
         <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
         <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -38,7 +43,12 @@
         <div class="header-top">
             <div class="container">
                 <div class="head-main">
-                    <a href="{{url('/')}}"><img src="{{ asset('images/logo-1.png') }}" alt="" /></a>
+                    <!-- Logo website 189*68 -->
+                    <!-- <a href="{{url('/')}}"><img src="{{ asset('images/logo-1.png') }}" alt="" /></a> -->
+
+                    <a href="{{url('/')}}"><p style="font-size:35px; ">Kiếm tiền thời 4.0 .com.vn</p></a>
+
+
                 </div>
             </div>
         </div>
@@ -59,10 +69,14 @@
                         </ul>
                 </div>
                 <div class="header-right">
-                    <div class="search-bar">
-                        <input type="text" value="" placeholder="Tìm kiếm...">
-                        <input type="submit" value="">
-                    </div>
+                    <form action="{{url('tim-kiem')}}" method="GET">
+                        @csrf
+                        <div class="search-bar">
+                            <input type="text" name="keywords" placeholder="Tìm kiếm...">
+                            <input type="submit" value="" name="timkiem">
+                        </div>
+                    </form>
+                    
                     <ul>
                         <li><a href="#"><span class="fb"> </span></a></li>
                         <!-- <li><a href="#"><span class="twit"> </span></a></li>

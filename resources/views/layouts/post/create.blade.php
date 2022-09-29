@@ -35,6 +35,9 @@
                             <label for="title">Tiêu đề</label>
                             <input type="text" name="title" id="" class="form-control" placeholder="Tiêu đề...">
 
+                            <label for="title">Lượt xem</label>
+                            <input type="text" name="views" id="" class="form-control" placeholder="Lượt xem...">
+
                             <label for="title">Hình ảnh</label>
                             <input type="file" name="image" class="form-control" >
 

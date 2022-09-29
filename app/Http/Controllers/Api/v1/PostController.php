@@ -13,6 +13,7 @@ use App\CategoryPost;
 use Storage;
 use File;
 use Session;
+use Carbon\Carbon;
 
 
 
@@ -27,7 +28,7 @@ class PostController extends Controller
     public function index()
     {
         //Hiển thị danh mục bài viết
-        $post = Post::with('category')->orderBy('id', 'DESC')->get();
+        $post = Post::with('category')->orderBy('id', 'DESC')->paginate(1);
         return view('layouts.post.index')->with(compact('post'));
 
         
@@ -39,7 +40,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { 
         //
         $category =  CategoryPost::all();
         return view('layouts.post.create')->with(compact('category'));
@@ -55,7 +56,9 @@ class PostController extends Controller
     {
         //Thêm bài viết
         $post = new Post();
+        $post->post_date = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $post->title = $request->title;
+        $post->views = $request->views;
         $post->short_desc = $request->short_desc;
         $post->desc = $request->desc; 
         $post->post_category_id = $request->post_category_id; 
@@ -115,7 +118,9 @@ class PostController extends Controller
     public function update(Request $request, $post)
     {
         $post = Post::find($post);
+        $post->post_date = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $post->title = $request->title;
+        $post->views = $request->views;
         $post->short_desc = $request->short_desc;
         $post->desc = $request->desc; 
         $post->post_category_id = $request->post_category_id; 

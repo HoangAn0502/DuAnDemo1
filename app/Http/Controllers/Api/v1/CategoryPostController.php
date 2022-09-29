@@ -47,6 +47,8 @@ class CategoryPostController extends Controller
         //Thêm danh mục vào database
         $Category = new CategoryPost();
         $Category->title = $request->title;
+        $Category->short_desc = $request->short_desc;
+
         $Category->save();
 
         
@@ -92,6 +94,8 @@ class CategoryPostController extends Controller
         $data = $request->all(); //lấy tất cả
         $category = CategoryPost::find($categoryPost);
         $category->title = $data['title'];
+        $category->short_desc = $data['short_desc'];
+
         $category->save();
 
         return redirect()->route('category.index')->with('success', 'Bạn đã cập nhật thành công');
